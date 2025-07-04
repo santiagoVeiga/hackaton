@@ -50,7 +50,7 @@
 
     async function cargarMensajes() {
       const contenedor = document.getElementById('mensajes');
-      const mensajesRef = collection(db, 'mensajes');
+      const mensajesRef = collection(db, 'messages');
       const q = query(mensajesRef, orderBy("timestamp", "desc"));
 
       const snapshot = await getDocs(q);
@@ -59,8 +59,8 @@
         const div = document.createElement('div');
         div.className = 'mensaje';
         div.innerHTML = `
-          <div class="meta"><strong>${data.remitente}</strong> → <strong>${data.destinatario}</strong></div>
-          <p>${data.mensaje}</p>
+          <div class="meta"><strong>${data.user}</strong> → <strong>${data.destinatario}</strong></div>
+          <p>${data.message}</p>
           <div class="meta">${data.timestamp?.toDate?.().toLocaleString() || 'Sin fecha'}</div>
         `;
         contenedor.appendChild(div);
