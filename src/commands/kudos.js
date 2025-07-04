@@ -5,6 +5,8 @@ require("dotenv").config();
 const kudos = (app) => {
   app.instance.command("/kudos", async ({ ack, respond, command, client }) => {
     try {
+
+      console.log("llegamos al handler");
       await ack();
 
       const text = command.text.trim();
