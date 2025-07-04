@@ -32,9 +32,6 @@ const kudos = (app) => {
       const message = quotedMessage?.slice(1, -1);
 
       const recipientId = userIds[0];
-      const recipientInfo = await client.users.info({
-        user: recipientId,
-      });
 
       try {
         const kudoData = {
@@ -47,8 +44,10 @@ const kudos = (app) => {
         const docRef = await addDoc(collection(app.db, "messages"), kudoData);
         console.log("Kudo saved with ID: ", docRef.id);
 
-        // Format user ids so that slack creates the mention
-        const mentions = userIds.map((id) => `<@${id}>`);
+        respond({
+          text: "Tu kudo ha sido enviado 🚀 ¡Qué hermoso gesto de reconocimiento! 💝",
+          response_type: "ephemeral",
+        });
       } catch (firebaseError) {
         console.error("Error saving to Firebase:", firebaseError);
 
