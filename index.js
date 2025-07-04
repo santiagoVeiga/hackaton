@@ -30,8 +30,8 @@ const appInstance = new App({
 registerCommands({ instance: appInstance, db });
 
 (async () => {
-  const port = 3000;
-  await appInstance.start(process.env.PORT || port);
+  const port = process.env.PORT || 3000;
+  await appInstance.start(`http://localhost:${port}`);
   console.log("⚡️ Kudos Bot is running!");
   console.log(`🔥 Firebase connected to project: ${firebaseConfig.projectId}`);
 })();
