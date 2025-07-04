@@ -1,7 +1,7 @@
 const { App } = require("@slack/bolt");
 const { parseUserIdsFromMentions } = require("./utils/parse-mentions");
 const { initializeApp } = require('firebase/app');
-const { getFirestore, collection, addDoc, Timestamp } = require('firebase/firestore');
+const { getFirestore, collection, addDoc, getDocs, query, where, orderBy, limit, Timestamp } = require('firebase/firestore');
 require("dotenv").config();
 
 // Initialize Firebase
@@ -10,7 +10,6 @@ const firebaseConfig = {
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
   projectId: process.env.FIREBASE_PROJECT_ID,
   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.FIREBASE_APP_ID,
   measurementId: process.env.FIREBASE_MEASUREMENT_ID
 };
@@ -54,11 +53,7 @@ app.command("/kudos", async ({ ack, respond, command, client }) => {
     }
 
     const message = quotedMessage?.slice(1, -1);
-
     const recipientId = userIds[0];
-    const recipientInfo = await client.users.info({
-      user: recipientId
-    });
 
     try {
       const kudoData = {
@@ -91,6 +86,147 @@ app.command("/kudos", async ({ ack, respond, command, client }) => {
     await respond({
       text: "Something went wrong processing your command.",
       response_type: "ephemeral",
+    });
+  }
+});
+
+// Kudos receive command - last month or history
+app.command("/kudos-receive", async ({ ack, respond, command }) => {
+  try {
+    await ack();
+
+    const workspace = command.team_id;
+    const userId = command.user_id;
+    const args = command.text.trim().toLowerCase();
+    const isHistory = args === 'history';
+
+    let kudosQuery;
+    let title;
+
+    if (isHistory) {
+      // Get all kudos ever received
+      kudosQuery = query(
+        collection(db, 'messages'),
+        where('workspace', '==', workspace),
+        where('recipientId', '==', userId),
+        orderBy('timestamp', 'desc')
+      );
+      title = "📚 All Kudos You've Received";
+    } else {
+      // Get kudos from last 30 days
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      
+      kudosQuery = query(
+        collection(db, 'messages'),
+        where('workspace', '==', workspace),
+        where('recipientId', '==', userId),
+        where('timestamp', '>=', Timestamp.fromDate(thirtyDaysAgo)),
+        orderBy('timestamp', 'desc')
+      );
+      title = "📅 Kudos Received (Last 30 Days)";
+    }
+
+    const snapshot = await getDocs(kudosQuery);
+    
+    if (snapshot.empty) {
+      await respond({
+        text: isHistory ? "You haven't received any kudos yet. Keep up the good work! 🌟" : "No kudos received in the last 30 days. Keep contributing! 💪",
+        response_type: "ephemeral"
+      });
+      return;
+    }
+
+    const blocks = [
+      {
+        type: "header",
+        text: {
+          type: "plain_text",
+          text: title,
+          emoji: true
+        }
+      },
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `*Total: ${snapshot.size} kudos*`
+        }
+      },
+      {
+        type: "divider"
+      }
+    ];
+
+    // Add each kudo as a block (limit display to prevent message being too long)
+    const displayLimit = isHistory ? 50 : 30;
+    const kudosToShow = snapshot.docs.slice(0, displayLimit);
+
+    kudosToShow.forEach((doc) => {
+      const data = doc.data();
+      const timestamp = data.timestamp.toDate();
+      const timeString = `<!date^${Math.floor(timestamp.getTime() / 1000)}^{date_short} at {time}|${timestamp.toLocaleString()}>`;
+
+      blocks.push({
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `*Message:* _"${data.message}"_\n*When:* ${timeString}`
+        }
+      });
+
+      if (data.channelName) {
+        blocks.push({
+          type: "context",
+          elements: [
+            {
+              type: "mrkdwn",
+              text: `Sent in #${data.channelName}`
+            }
+          ]
+        });
+      }
+
+      blocks.push({
+        type: "divider"
+      });
+    });
+
+    // If there are more kudos than displayed
+    if (snapshot.size > displayLimit) {
+      blocks.push({
+        type: "context",
+        elements: [
+          {
+            type: "mrkdwn",
+            text: `_Showing ${displayLimit} of ${snapshot.size} total kudos_`
+          }
+        ]
+      });
+    }
+
+    // Add help text at the bottom
+    blocks.push({
+      type: "context",
+      elements: [
+        {
+          type: "mrkdwn",
+          text: isHistory ? "💡 _Use `/kudos-receive` to see only last 30 days_" : "💡 _Use `/kudos-receive history` to see all kudos ever received_"
+        }
+      ]
+    });
+
+    await respond({
+      blocks: blocks,
+      response_type: "ephemeral"
+    });
+
+  } catch (error) {
+    console.error("Error in /kudos-receive command:", error);
+    
+    await respond({
+      text: "Error fetching your kudos. Please try again later.",
+      response_type: "ephemeral"
     });
   }
 });
