@@ -24,6 +24,9 @@ const appInstance = new App({
   socketMode: true,
   appToken: process.env.APP_TOKEN,
   parseMode: "full",
+  host: 'localhost',
+  protocol: 'https',
+  port: process.env.PORT || 3000,
 });
 
 // Register all commands
