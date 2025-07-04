@@ -1,0 +1,8 @@
+{
+  "watch": ["*.js"],
+  "ext": "js",
+  "ignore": ["node_modules/"],
+  "delay": "1000",
+  "verbose": true,
+  "restartable": "rs"
+}
