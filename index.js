@@ -15,11 +15,8 @@ const app = new App({
   console.log("Bolt app started!!");
 })();
 
-app.message("ping", async ({ command, say }) => {
-  try {
-    say("pong");
-  } catch (error) {
-    console.log("err");
-    console.error(error);
-  }
+app.command("/ping", async ({ ack, respond }) => {
+  await ack();
+
+  await respond("pong");
 });
