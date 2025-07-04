@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mensajes del Bot</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 1rem;
+      background: #f2f2f2;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .mensaje {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .meta {
+      font-size: 0.85rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>📨 Mensajes del Bot</h1>
+  <div id="mensajes"></div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCXLNHdAeb9BLhwnHngYrjAcAILluLh6mU",
+        authDomain: "kudosdb-6cf6c.firebaseapp.com",
+        projectId: "kudosdb-6cf6c",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function cargarMensajes() {
+      const contenedor = document.getElementById('mensajes');
+      const mensajesRef = collection(db, 'mensajes');
+      const q = query(mensajesRef, orderBy("timestamp", "desc"));
+
+      const snapshot = await getDocs(q);
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const div = document.createElement('div');
+        div.className = 'mensaje';
+        div.innerHTML = `
+          <div class="meta"><strong>${data.remitente}</strong> → <strong>${data.destinatario}</strong></div>
+          <p>${data.mensaje}</p>
+          <div class="meta">${data.timestamp?.toDate?.().toLocaleString() || 'Sin fecha'}</div>
+        `;
+        contenedor.appendChild(div);
+      });
+    }
+
+    cargarMensajes();
+  </script>
+</body>
+</html>
