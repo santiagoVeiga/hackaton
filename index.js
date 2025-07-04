@@ -63,12 +63,7 @@ app.command("/kudos", async ({ ack, respond, command, client }) => {
     try {
       const kudoData = {
         workspace: command.team_id,
-        workspaceName: command.team_domain,
-        recipient: {
-          id: recipientId,
-          name: recipientInfo.user.real_name || recipientInfo.user.name,
-          username: recipientInfo.user.name
-        },
+        recipientId: recipientId,
         message: message,
         timestamp: Timestamp.now(),
       };
@@ -81,7 +76,7 @@ app.command("/kudos", async ({ ack, respond, command, client }) => {
 
     } catch (firebaseError) {
       console.error("Error saving to Firebase:", firebaseError);
-      
+
       // Still send the kudos even if Firebase fails
       const mentions = userIds.map((id) => `<@${id}>`);
       await respond({
