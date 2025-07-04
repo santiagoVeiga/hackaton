@@ -4,8 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js",
-    "prepare": "husky"
+    "dev": "nodemon app.js"
   },
   "dependencies": {
     "@slack/bolt": "^4.4.0",
