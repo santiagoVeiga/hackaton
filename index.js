@@ -90,8 +90,8 @@ app.command("/kudos", async ({ ack, respond, command, client }) => {
   }
 });
 
-// Kudos receive command - last month or history
-app.command("/kudos-receive", async ({ ack, respond, command }) => {
+// Kudos receiveds command - last month or history
+app.command("/kudos-received", async ({ ack, respond, command }) => {
   try {
     await ack();
 
