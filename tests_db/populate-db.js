@@ -1,4 +1,3 @@
-// populate-test.js
 const { initializeApp } = require('firebase/app');
 const { getFirestore, collection, addDoc, Timestamp } = require('firebase/firestore');
 
@@ -17,56 +16,45 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-console.log('Firebase inicializado correctamente');
-console.log('DB:', db);
 
-const messages = [
+// Para un bot de kudos, aquí hay ejemplos más específicos:
+const kudosMessages = [
   {
-    remitente: 'U001',
-    destinatario: 'BOT',
-    mensaje: 'Hola, bot!',
+    workspace: 'W001',
+    user: 'U001',
+    message: '@U002 gracias por tu ayuda con el proyecto!',
+    timestamp: Timestamp.now()
   },
   {
-    remitente: 'U002',
-    destinatario: 'BOT',
-    mensaje: '¿Qué puedo hacer hoy?',
+    workspace: 'W001',
+    user: 'U003',
+    message: '@U001 excelente presentación hoy 🌟',
+    timestamp: Timestamp.now()
   },
   {
-    remitente: 'U003',
-    destinatario: 'U001',
-    mensaje: '¿Tenés un minuto para charlar?',
-  },
-  {
-    remitente: 'BOT',
-    destinatario: 'U002',
-    mensaje: 'Podés ver tus tareas pendientes con /tareas',
-  },
-  {
-    remitente: 'U001',
-    destinatario: 'BOT',
-    mensaje: 'Gracias 🙏',
-  },
+    workspace: 'W001',
+    user: 'BOT',
+    message: '🎉 U001 ha recibido un kudo de U003',
+    timestamp: Timestamp.now()
+  }
 ];
 
+// Función principal
 (async () => {
-    try {
-      for (const msg of messages) {
-        await addDoc(collection(db, 'messages'), {
-          ...msg,
-          timestamp: Timestamp.now()
-        });
-        await addDoc(collection(db, 'workspace'), {
-          ...msg,
-          timestamp: Timestamp.now()
-        });
-        await addDoc(collection(db, 'users'), {
-          ...msg,
-          timestamp: Timestamp.now()
-        });
-        console.log(`✅ Mensaje de ${msg.remitente} guardado`);
-      }
-      console.log('🎉 Base de datos poblada con mensajes de prueba.');
-    } catch (err) {
-      console.error('Error al poblar la base:', err);
+  try {
+    console.log('Iniciando carga de datos...\n');
+    console.log('\n🌟 Cargando kudos...');
+    // Cargar kudos
+    for (const kudo of kudosMessages) {
+      const docRef = await addDoc(collection(db, 'messages'), kudo);
+      console.log(`✅ Kudo de ${kudo.user} guardado con ID: ${docRef.id}`);
     }
-  })();
+    console.log('\n🎉 Base de datos poblada exitosamente!');
+    console.log(`Total de documentos creados: ${ kudosMessages.length}`);
+    process.exit(0);
+  } catch (err) {
+    console.error('❌ Error al poblar la base:', err);
+    console.error('Detalles del error:', err.message);
+    process.exit(1);
+  }
+})();
