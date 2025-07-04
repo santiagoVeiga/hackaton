@@ -21,7 +21,7 @@ app.command("/kudos", async ({ ack, respond, command }) => {
     const { status, error, userIds } = parseUserIdsFromMentions(args);
 
     const quotedMessage = args.find(
-      (arg) => arg.startsWith('"') && arg.endsWith('"')
+      (arg) => arg.startsWith('"') && arg.endsWith('"'),
     );
 
     const invalidNumberOfArgs = args.length > 2 || args.length < 2;

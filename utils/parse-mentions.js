@@ -1,7 +1,7 @@
 // returns userIds from mentions in the text
 export const parseUserIdsFromMentions = (args) => {
   const mentionStrings = args.filter(
-    (arg) => arg.startsWith("<@") && arg.includes(">")
+    (arg) => arg.startsWith("<@") && arg.includes(">"),
   );
 
   if (!mentionStrings) {
