@@ -1,184 +1,396 @@
 :root {
-    --bg: #1f2937;
-    --primary: #9333ea;
-    --text: #fff;
-    --subtext: #cbd5e1;
-    --btn-bg: #6d28d9;
-    --btn-hover: #7c3aed;
-    --radius: 8px;
-  }
-  
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
+  --bg: #1f2937;
+  --primary: #9333ea;
+  --text: #fff;
+  --subtext: #cbd5e1;
+  --btn-bg: #6d28d9;
+  --btn-hover: #7c3aed;
+  --radius: 8px;
+  --card-bg: #374151;
+  --border: #4b5563;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--text);
+  line-height: 1.5;
+  padding: 0 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--subtext);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+}
+
+.slack-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #4A154B;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.slack-button:hover {
+  background: #611f69;
+}
+
+.slack-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Hero section (Home page) */
+.hero {
+  max-width: 800px;
+  margin: 4rem auto;
+  text-align: center;
+  padding: 0;
+  flex: 1;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--subtext);
+  margin-bottom: 2rem;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary);
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 3rem;
+  transition: background 0.2s ease;
+}
+
+.cta:hover {
+  background: var(--btn-hover);
+}
+
+/* Mock image */
+.mockup img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: var(--radius);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* How it works page styles */
+.main-content {
+  flex: 1;
+  padding: 2rem 0;
+}
+
+.hero-section {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.hero-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  color: var(--subtext);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Steps Section */
+.steps-section {
+  margin-bottom: 4rem;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.step-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 2rem;
+  border: 1px solid var(--border);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-2px);
+}
+
+.step-number {
+  background: var(--primary);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 0 auto 1rem auto;
+}
+
+.step-card h3 {
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.step-card p {
+  color: var(--subtext);
+  line-height: 1.6;
+}
+
+/* Commands Section */
+.commands-section {
+  margin-bottom: 4rem;
+}
+
+.commands-section h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.command-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.command-item {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+}
+
+.command-code {
+  background: #1f2937;
+  color: #10b981;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+}
+
+.command-item h4 {
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.command-item p {
+  color: var(--subtext);
+  font-size: 0.9rem;
+}
+
+/* Features Section */
+.features-section {
+  margin-bottom: 4rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.feature-item {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.feature-item h4 {
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.feature-item p {
+  color: var(--subtext);
+  font-size: 0.9rem;
+}
+
+/* CTA Section */
+.cta-section {
+  text-align: center;
+  background: var(--card-bg);
+  padding: 3rem 2rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.cta-section h2 {
+  margin-bottom: 1rem;
+}
+
+.cta-section p {
+  color: var(--subtext);
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: background 0.2s ease;
+}
+
+.cta-button:hover {
+  background: var(--btn-hover);
+}
+
+/* Footer */
+.footer {
+  background: #374151;
+  margin-top: auto;
+  padding: 1rem 0;
+  border-top: 1px solid #4b5563;
+  margin-left: -2rem;
+  margin-right: -2rem;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.footer-left span {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.footer-right {
+  display: flex;
+  gap: 2rem;
+}
+
+.footer-right a {
+  color: #9ca3af;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.footer-right a:hover {
+  color: #d1d5db;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   body {
-    background: var(--bg);
-    font-family: 'Segoe UI', sans-serif;
-    color: var(--text);
-    line-height: 1.5;
-    padding: 0 2rem; /* Espacios laterales */
-    max-width: 1200px; /* Ancho máximo */
-    margin: 0 auto; /* Centrar el contenido */
-    min-height: 100vh; /* Altura mínima de la ventana */
-    display: flex;
-    flex-direction: column;
+    padding: 0 1rem;
   }
   
-  /* Navbar */
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    padding: 1.5rem 0; /* Cambié de 2rem a 0 en horizontal */
-    align-items: center;
+  .hero h1, .hero-section h1 {
+    font-size: 2rem;
   }
   
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 1.3rem;
-    font-weight: bold;
+  .nav-links {
+    display: none;
   }
   
-  .logo-icon {
-    width: 32px;
-    height: 32px;
-  }
-  
-  .slack-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #4A154B;
-    color: white;
-    padding: 0.6rem 1.2rem;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 14px;
-    transition: background 0.2s ease;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .slack-button:hover {
-    background: #611f69;
-  }
-  
-  .slack-icon {
-    width: 18px;
-    height: 18px;
-  }
-  
-  /* Hero section */
-  .hero {
-    max-width: 800px;
-    margin: 4rem auto;
-    text-align: center;
-    padding: 0; /* Quité el padding horizontal */
-    flex: 1; /* Esto hace que el hero ocupe el espacio restante */
-  }
-  
-  .hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .subtitle {
-    font-size: 1.1rem;
-    color: var(--subtext);
-    margin-bottom: 2rem;
-  }
-  
-  .cta {
-    display: inline-block;
-    background: var(--primary);
-    padding: 0.8rem 1.5rem;
-    border-radius: var(--radius);
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1rem;
-    margin-bottom: 3rem;
-    transition: background 0.2s ease;
-  }
-  
-  .cta:hover {
-    background: var(--btn-hover);
-  }
-  
-  /* Mock image */
-  .mockup img {
-    width: 100%;
-    max-width: 500px;
-    border-radius: var(--radius);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Footer */
-  .footer {
-    background: #374151;
-    margin-top: auto; /* Esto empuja el footer hacia abajo */
-    padding: 1rem 0;
-    border-top: 1px solid #4b5563;
-    margin-left: -2rem; /* Compensar el padding del body */
-    margin-right: -2rem; /* Compensar el padding del body */
-    border-radius: 10px;
-  }
-
   .footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+    padding: 0 1rem;
   }
-
-  .footer-left span {
-    color: #9ca3af;
-    font-size: 0.9rem;
-  }
-
+  
   .footer-right {
-    display: flex;
-    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
   }
-
-  .footer-right a {
-    color: #9ca3af;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.2s ease;
-  }
-  
-  .footer-right a:hover {
-    color: #d1d5db;
-  }
-  
-  /* Responsive */
-  @media (max-width: 768px) {
-    body {
-      padding: 0 1rem; /* Menos padding en móviles */
-    }
-    
-    .hero h1 {
-      font-size: 2rem;
-    }
-    
-    .footer-content {
-      flex-direction: column;
-      gap: 1rem;
-      text-align: center;
-      padding: 0 1rem;
-    }
-    
-    .footer-right {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-    }
-  }
+}
