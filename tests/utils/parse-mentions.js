@@ -1,4 +1,4 @@
-const { parseUserIdsFromMentions } = require("../../utils/parse-mentions");
+const { parseUserIdsFromMentions } = require("../../src/utils/parse-mentions");
 var assert = require("assert");
 
 describe("parse-mentions works", function () {
