@@ -1,0 +1,152 @@
+/* privacy-policy.css */
+
+/* Import the main styles or use the same variables */
+:root {
+    --bg: #1f2937;
+    --primary: #9333ea;
+    --slack: #4A154B;
+    --text: #fff;
+    --subtext: #cbd5e1;
+    --btn-bg: #6d28d9;
+    --btn-hover: #7c3aed;
+    --radius: 8px;
+    --card-bg: #374151;
+    --border: #4b5563;
+  }
+  
+  /* Privacy Policy Specific Styles */
+  .privacy-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0;
+    flex: 1;
+  }
+  
+  .privacy-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .privacy-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+  
+  .last-updated {
+    color: var(--subtext);
+    font-size: 0.9rem;
+  }
+  
+  /* Privacy Content */
+  .privacy-content h2 {
+    color: var(--text);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+  
+  .privacy-content h3 {
+      color: var(--primary);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+  }
+  
+  .privacy-content p {
+      margin-bottom: 1rem;
+      color: var(--subtext);
+      line-height: 1.8;
+  }
+  
+  .privacy-content ul {
+      margin-bottom: 1.5rem;
+      padding-left: 2rem;
+  }
+  
+  .privacy-content li {
+      margin-bottom: 0.75rem;
+      color: var(--subtext);
+      line-height: 1.6;
+  }
+  
+  .privacy-content strong {
+      color: var(--text);
+      font-weight: 600;
+  }
+  
+  /* Contact Section */
+  .contact-section {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius);
+      margin-top: 3rem;
+      border: 1px solid var(--border);
+  }
+  
+  .contact-section h2 {
+      margin-top: 0;
+      color: var(--text);
+  }
+  
+  .contact-section a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+  }
+  
+  .contact-section a:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+  }
+  
+  /* Code blocks */
+  .privacy-content code {
+      background: var(--bg);
+      color: #10b981;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      border: 1px solid var(--border);
+  }
+  
+  /* Privacy Footer */
+  .privacy-footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--subtext);
+  }
+  
+  .privacy-footer p {
+      line-height: 1.8;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+      .privacy-container {
+          padding: 1rem 0;
+      }
+      
+      .privacy-header h1 {
+          font-size: 2rem;
+      }
+      
+      .privacy-content h2 {
+          font-size: 1.5rem;
+      }
+      
+      .privacy-content h3 {
+          font-size: 1.2rem;
+      }
+      
+      .contact-section {
+          padding: 1.5rem;
+      }
+  }

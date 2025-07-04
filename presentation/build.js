@@ -17,7 +17,8 @@ function buildPage(pageName, title, contentFile) {
   }
 }
 
-buildPage("index", "Home", "index-content.html");
-buildPage("how-it-works", "How It Works", "how-it-works-content.html");
+buildPage('index', 'Home', 'index-content.html');
+buildPage('how-it-works', 'How It Works', 'how-it-works-content.html');
+buildPage('privacy', 'Privacy Policy', 'privacy.html');
 
 console.log("🚀 Build completado!");
