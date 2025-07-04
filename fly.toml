@@ -9,7 +9,7 @@ primary_region = 'gru'
 [build]
 
 [env]
-  NODE_ENV = "production"
+  port = "3000"
 
 [http_service]
   internal_port = 3000
